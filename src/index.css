@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap");
+
+* {
+  font-family: "Schibsted Grotesk", sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-animation {
+  border: 0.9px solid black;
+  font-weight: 600;
+  font-size: 12px;
+  overflow: hidden;
+  border-radius: 10rem;
+  padding: 5px 20px;
+  position: relative;
+}
+
+.btn-animation h3 {
+  z-index: 2;
+  position: relative;
+}
+
+.btn-animation:hover h3 {
+  color: white;
+}
+
+.btn-animation::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  left: 0;
+  bottom: -100%;
+  width: 100%;
+  background-color: black;
+  border-radius: 50%;
+  transition: all ease 0.5s;
+}
+
+.btn-animation:hover::after {
+  color: white;
+}
+
+.btn-animation:hover::after {
+  bottom: 0;
+  border-radius: 0;
+  transition: all ease 0.3s;
+}
+
+@media screen and (max-width: 650px) {
+  .btn-animation {
+    font-weight: 400;
+    font-size: 10px;
+    padding: 3px 18px;
+    position: relative;
+  }
+}
