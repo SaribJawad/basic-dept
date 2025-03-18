@@ -2,7 +2,7 @@ import { GoDotFill } from "react-icons/go";
 
 function Footer() {
   return (
-    <footer className="bg-[#2A2927] w-full text-[#F4F4F4] md:h-[50vh] h-[80vh] ">
+    <footer className="bg-[#2A2927] w-full text-[#F4F4F4] h-[80vh] ">
       <div className=" flex  flex-col h-full">
         <section className="md:px-16  px-6 py-12 flex flex-col gap-4 flex-1">
           {/* right section footer */}
