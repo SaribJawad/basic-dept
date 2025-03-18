@@ -7,7 +7,6 @@ import LocomotiveScroll, { OnScrollEvent } from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import HeroSection from "../component/HeroSection";
 import FeatureNews from "../component/FeatureNews";
-import Footer from "../component/Footer";
 
 function LandingPage() {
   const scrollRef = useRef<HTMLElement | null>(null);
