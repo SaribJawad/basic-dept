@@ -62,8 +62,8 @@ function FeatureNews() {
   ];
 
   return (
-    <section className="min-h-screen md:px-16 px-6 py-12 flex flex-col gap-8">
-      <div className="w-full flex items-center justify-between">
+    <section className="min-h-[100vh] md:px-16 px-6 py-12 flex flex-col gap-8  flex-grow ">
+      <div className="w-full flex  items-center justify-between">
         <h1 className="uppercase md:text-[2.5vw] text-[4vw] font-bold">
           Featured News
         </h1>
