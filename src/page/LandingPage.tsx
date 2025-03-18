@@ -7,6 +7,7 @@ import LocomotiveScroll, { OnScrollEvent } from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import HeroSection from "../component/HeroSection";
 import FeatureNews from "../component/FeatureNews";
+import Footer from "../component/Footer";
 
 function LandingPage() {
   const scrollRef = useRef<HTMLElement | null>(null);
@@ -60,7 +61,7 @@ function LandingPage() {
       />
       <main
         ref={scrollRef}
-        className=" w-full   bg-[#F2F2F2] overflow-x-hidden relative"
+        className=" w-full min-h-screen bg-[#F2F2F2] overflow-x-hidden relative"
         data-scroll-container
       >
         <LandingSection />
@@ -68,7 +69,7 @@ function LandingPage() {
         <WorkSection />
         <HeroSection />
         <FeatureNews />
-        {/* <Footer /> */}
+        <Footer />
       </main>
     </>
   );
