@@ -69,7 +69,7 @@ function LandingPage() {
         <WorkSection />
         <HeroSection />
         <FeatureNews />
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </>
   );
