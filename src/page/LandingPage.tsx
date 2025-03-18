@@ -21,35 +21,111 @@ function LandingPage() {
   useEffect(() => {
     if (!scrollRef.current) return;
 
-    locomotiveScrollRef.current = new LocomotiveScroll({
-      el: scrollRef.current!,
-      smooth: true,
-      smartphone: { smooth: true },
-      multiplier: 1,
-    });
+    let LocomotiveScroll;
 
-    // Handle scroll events
-    const handleScroll = (instance: OnScrollEvent) => {
-      const currentScrollY = instance.scroll.y;
-      const isScrollingDown = currentScrollY > lastScrollY.current;
+    const initScroll = async () => {
+      try {
+        const locomotiveModule = await import("locomotive-scroll");
+        LocomotiveScroll = locomotiveModule.default;
 
-      const isNearTop = currentScrollY < 100;
+        locomotiveScrollRef.current = new LocomotiveScroll({
+          el: scrollRef.current!,
+          smooth: true,
+          smartphone: { smooth: true },
+          multiplier: 1,
+        });
 
-      setNavbarState({
-        isVisible: !isScrollingDown || isNearTop,
-        isTransparent: isNearTop,
-      });
+        // Handle scroll events
+        const handleScroll = (instance: OnScrollEvent) => {
+          const currentScrollY = instance.scroll.y;
+          const isScrollingDown = currentScrollY > lastScrollY.current;
+          const isNearTop = currentScrollY < 100;
 
-      lastScrollY.current = currentScrollY;
+          setNavbarState({
+            isVisible: !isScrollingDown || isNearTop,
+            isTransparent: isNearTop,
+          });
+
+          lastScrollY.current = currentScrollY;
+        };
+
+        locomotiveScrollRef.current.on("scroll", handleScroll);
+
+        document.fonts.ready.then(() => {
+          console.log("Fonts loaded, updating LocomotiveScroll");
+          if (locomotiveScrollRef.current) {
+            locomotiveScrollRef.current.update();
+          }
+        });
+
+        const updateAfterImagesLoaded = () => {
+          const allImages = document.querySelectorAll("img");
+          let loadedImagesCount = 0;
+
+          allImages.forEach((img) => {
+            if (img.complete) {
+              loadedImagesCount++;
+            } else {
+              img.addEventListener("load", () => {
+                loadedImagesCount++;
+                if (loadedImagesCount === allImages.length) {
+                  console.log("All images loaded, updating LocomotiveScroll");
+                  if (locomotiveScrollRef.current) {
+                    locomotiveScrollRef.current.update();
+                  }
+                }
+              });
+            }
+          });
+
+          if (loadedImagesCount === allImages.length) {
+            console.log("All images already loaded, updating LocomotiveScroll");
+            if (locomotiveScrollRef.current) {
+              locomotiveScrollRef.current.update();
+            }
+          }
+        };
+
+        updateAfterImagesLoaded();
+
+        setTimeout(() => {
+          console.log("Timeout update for LocomotiveScroll");
+          if (locomotiveScrollRef.current) {
+            locomotiveScrollRef.current.update();
+          }
+        }, 1000);
+
+        window.addEventListener("resize", () => {
+          if (locomotiveScrollRef.current) {
+            locomotiveScrollRef.current.update();
+          }
+        });
+      } catch (error) {
+        console.error("Failed to initialize Locomotive Scroll:", error);
+      }
     };
 
-    locomotiveScrollRef.current.on("scroll", handleScroll);
+    setTimeout(() => {
+      initScroll();
+    }, 100);
 
     return () => {
       if (locomotiveScrollRef.current) {
         locomotiveScrollRef.current.destroy();
         locomotiveScrollRef.current = null;
       }
+    };
+  }, []);
+
+  useEffect(() => {
+    (window as any).updateLocomotiveScroll = () => {
+      if (locomotiveScrollRef.current) {
+        locomotiveScrollRef.current.update();
+      }
+    };
+
+    return () => {
+      (window as any).updateLocomotiveScroll = null;
     };
   }, []);
 
