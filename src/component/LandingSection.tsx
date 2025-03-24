@@ -1,7 +1,13 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import video from "../assets/hero-section-video.mp4";
 import { useRef } from "react";
+import video from "../assets/hero-section-video.mp4";
+// import { Cloudinary } from "@cloudinary/url-gen";
+// import { AdvancedVideo } from "@cloudinary/react";
+
+// const cld = new Cloudinary({
+//   cloud: { cloudName: "dd6lwuwx1" },
+// });
 
 function LandingSection() {
   const thumbRef = useRef<HTMLDivElement>(null);
@@ -51,6 +57,13 @@ function LandingSection() {
   return (
     <section className="h-screen w-screen overflow-hidden ">
       <div className="relative h-full w-full">
+        {/* <AdvancedVideo
+          cldVid={cld.video("/hero-section-video_cvr1tx")}
+          className="h-full w-full border  object-cover transform scale-105 "
+          autoPlay
+          muted
+          loop
+        /> */}
         <video
           ref={videoRef}
           className="h-full w-full border video object-cover transform scale-105 "
